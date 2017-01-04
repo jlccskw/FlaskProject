@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>{{ name }}{{ string }}</h2>
+<form method="post">
+    {{ form.hidden_tag() }}
+    {{ form.name.label}} {{ form.name(class="form-control") }}
+    {{ form.submit() }}
+</form>
+    {{ error }}
+
+{% endblock %}

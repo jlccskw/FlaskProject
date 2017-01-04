@@ -1,5 +1,5 @@
 #coding=utf-8
-from flask import Flask,render_template
+from flask import Flask,render_template,session,redirect,url_for
 from flask_wtf import Form
 from wtforms import StringField,SubmitField
 from wtforms.validators import DataRequired
@@ -18,10 +18,12 @@ def index():
     string = u'的页面'
     form=NameForm()
     if form.validate_on_submit():
-        name = form.name.data
-        form.name.data = ''
+        session['name'] = form.name.data
+        # print session['name']
+        return redirect(url_for('index'))
+        # form.name.data = ''
 
-    return render_template('index.html', string=string,form=form,name=name)
+    return render_template('index.html', string=string,form=form,name=session.get('name'))
 
 @app.route('/add',methods=['POST',])
 def add():
